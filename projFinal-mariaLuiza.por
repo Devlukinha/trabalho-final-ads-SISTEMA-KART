@@ -9,7 +9,7 @@ programa
 	
 			enquanto(repeticao == verdadeiro) {
 				se(modelo[i]=="" e cor[i]=="" e statusUso[i]=="" e valorLocacao[i]==0 e totalGasto[i]==0 e qntVezesLocado[i]==0 e statusLocacao[i]==0 ){
-				escreva("\nInsira as seguintes informações sobre o kart a ser cadastrado:")
+				escreva("\nInsira as seguintes informações para realizar o cadastro do kart:")
 				
 				escreva("\nModelo: ")
 				leia(modelo[i])
@@ -17,7 +17,7 @@ programa
 				escreva("\nCor: ")
 				leia(cor[i])
 				
-				escreva("\nStatus uso (disponível para uso ou em manutenção): ")
+				escreva("\nStatus uso (disponível ou manutenção): ")
 				leia(statusUso[i])
 				
 				escreva("\nValor locação: ")
@@ -31,17 +31,25 @@ programa
 				
 				escreva("\nStatus locação (0 para alugado ou 1 disponível para locação): ")
 				leia(statusLocacao[i])
+				faca{
+					escreva("Digite uma opção válida:\n0-Alugado \n1-Disponível p/ alugar\n")
+					leia(statusLocacao[i])
+				}enquanto(statusLocacao[i] != 0 e statusLocacao[i] != 1)
 				
 				} senao{
-					escreva("\nA posição ", i, " já está ocupada, escolha outra posição")
+					escreva("\nA posição ",i," já está ocupada, escolha outra posição: ")
 					leia(i)
+					enquanto(i<0 ou i>14){
+						escreva("\nOpção inválida. Insira um numero entre 0 e 14: ")
+						leia(i)
+					}
 					cadastrarKart(modelo, cor, statusUso, valorLocacao, totalGasto, qntVezesLocado, statusLocacao, i)
 				}
 	
-				escreva("\n Deseja cadastrar um novo kart?\n")
+				escreva("\nDeseja cadastrar um novo kart?(s/n): ")
 				leia(resp)
 	
-				se(resp == "sim") {
+				se(resp == "sim" ou resp == "s" ou resp == "SIM" ou resp == "S") {
 					cadastrarKart(modelo, cor, statusUso, valorLocacao, totalGasto, qntVezesLocado, statusLocacao, i)
 				}
 				senao{
@@ -330,7 +338,7 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 7298; 
+ * @POSICAO-CURSOR = 681; 
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
