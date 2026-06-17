@@ -1,6 +1,85 @@
 programa
 {
 
+	funcao atualizaDia(logico &locacaoPista){
+		limpa()
+		inteiro menu
+		
+		escreva("Você tem certeza que realmente deseja atualizar o dia?")
+		escreva("\n\n1 - Sim ")
+		escreva("\n2 - Não")
+		escreva("\n\nESCOLHA UMA OPÇÃO: ")
+		leia(menu)
+
+		se (menu == 1){
+			locacaoPista = falso
+			
+			escreva("\nStatus da pista atualizado para NÃO LOCADO. ")
+			escreva("\nKarts que deverão ser cobrado novo aluguel: ")
+			
+			}
+		se (menu == 2){
+			
+			}
+		}
+
+
+
+
+	
+//função para locação da Pista
+
+	funcao locacao(logico &locacaoPista, real &valorLocacaoPista){
+		inteiro navegaMenuLocacao
+		real novoValorPista
+
+		limpa()
+		escreva("------------------------------------------------")
+	  			se (valorLocacaoPista == 0){
+	  				escreva("\nValor atual da locação: --- ")
+	  				}
+	  			senao{
+	  				escreva("\nValor atual da locação: R$", valorLocacaoPista)
+	  				}
+
+				se (locacaoPista == verdadeiro){
+	  				escreva("\nStatus atual da pista: Locada\n")
+	  				}
+	  			senao{
+	  				escreva("\nStatus atual da pista: Não locada\n")
+	  				}
+				escreva("------------------------------------------------")
+	  			
+	  			
+	  			escreva("\n1 - Alocar pista")
+	  			escreva("\n2 - Alterar valor locação ")
+	  			escreva("\n3 - Cancelar locação")
+	  			escreva("\n4 - Voltar ao menu principal")
+	  			escreva("\n\nEscolha uma opcão: ")
+	  			leia(navegaMenuLocacao)
+
+	  			enquanto (navegaMenuLocacao != 1 e navegaMenuLocacao != 2 e navegaMenuLocacao != 3 e navegaMenuLocacao != 4){
+		  			escreva("\nInsira uma opcão válida: ")
+		  			leia(navegaMenuLocacao)	
+					}
+				
+		  		se(navegaMenuLocacao == 1){
+		  				locacaoPista = verdadeiro
+		  			}
+		  		senao se (navegaMenuLocacao == 2){
+		  				escreva("Insira o novo valor de locação: R$")
+		  				leia(novoValorPista)
+		 				valorLocacaoPista = novoValorPista
+		  			}
+		  		senao se (navegaMenuLocacao == 3){
+		  				locacaoPista = falso
+		  			}	
+				senao se (navegaMenuLocacao == 4){
+		  			//Tentar salvar de maneira permanente, pois estava sendo usado menuSistema() e dando erro de reset
+		  			}
+	 
+	}
+		
 //funcao para cadastrar karts
 	funcao cadastrarKart(cadeia &modelo[], cadeia &cor[], cadeia &statusUso[], real &valorLocacao[], real &totalGasto[], inteiro &qntVezesLocado[], inteiro &statusLocacao[], inteiro &i){
 
@@ -32,14 +111,15 @@ programa
 				
 				escreva("\nStatus locação (0 para alugado ou 1 disponível para locação): ")
 				leia(statusLocacao[i])
-				faca{
-					escreva("Digite uma opção válida:\n0-Alugado \n1-Disponível p/ alugar\n")
-					leia(statusLocacao[i])
-				}enquanto(statusLocacao[i] != 0 e statusLocacao[i] != 1)
-
+				se (statusLocacao[i] != 0 e statusLocacao[i] != 1){
+					faca{
+						escreva("Digite uma opção válida:\n0-Alugado \n1-Disponível p/ alugar\n")
+						leia(statusLocacao[i])
+					}enquanto(statusLocacao[i] != 0 e statusLocacao[i] != 1)
+				}
 				
 			} senao{
-				escreva("\nA posição ", i, " já está ocupada, escolha outra posição")
+				escreva("\nA posição ", i, " já está ocupada, escolha outra posição: ")
 				leia(i)
 				enquanto(i<0 ou i>14){
 						escreva("\nOpção inválida. Insira um numero entre 0 e 14: ")
@@ -48,11 +128,12 @@ programa
 				cadastrarKart(modelo, cor, statusUso, valorLocacao, totalGasto, qntVezesLocado, statusLocacao, i)
 			}
 
-			escreva("\n Deseja cadastrar um novo kart?\n")
+			escreva("\n Deseja cadastrar um novo kart?s/n\n")
 			leia(resp)
 
 			se(resp == "sim" ou resp == "s" ou resp == "SIM" ou resp == "S") {
 				cadastrarKart(modelo, cor, statusUso, valorLocacao, totalGasto, qntVezesLocado, statusLocacao, i)
+				resp = ""
 			}
 			senao {
 				repeticao = falso
@@ -289,9 +370,9 @@ programa
 	funcao menuSistema() {
 		
 		inteiro navegaMenu
-  		logico funcionamento = verdadeiro
+  		logico funcionamento = verdadeiro, locacaoPista = falso
   		cadeia modelo[15], cor[15], corb[15], statusUso[15], statusUsob[15]
-		real valorLocacao[15], valorLocacaob[15], totalGasto[15], totalGastob[15]
+		real valorLocacao[15], valorLocacaob[15], totalGasto[15], totalGastob[15], valorLocacaoPista = 0.0, novoValorPista= 0.0
 		inteiro qntVezesLocado[15], qntVezesLocadob[15], statusLocacao[15], statusLocacaob[15], i
 		
 //Teste
@@ -305,14 +386,14 @@ para(i = 0; i < 15;i++){
   qntVezesLocado[i] = 0
   statusLocacao[i] = 0
   statusLocacaob[i] = 0
-  totalGasto[i] = 0
-  totalGastob[i] = 0
-  valorLocacao[i] = 0
-  valorLocacaob[i] = 0
+  totalGasto[i] = 0.0
+  totalGastob[i] = 0.0
+  valorLocacao[i] = 0.0
+  valorLocacaob[i] = 0.0
 }
 
 	  //Escrever funções de cada número do menu dentro do respectivo "se" (Função 12 já pronta, não alterar)
-		preencherVetores(modelo, cor, statusUso, valorLocacao, totalGasto, qntVezesLocado, statusLocacao)
+		
 	 	enquanto(funcionamento == verdadeiro){
 
 	  	escreva("\n======================[ MENU ]============================")
@@ -379,11 +460,11 @@ para(i = 0; i < 15;i++){
   		}
 
   		senao se(navegaMenu == 10){
-    
+    			locacao(locacaoPista, valorLocacaoPista)
   		}
 
   		senao se(navegaMenu == 11){
-    
+    			atualizaDia(locacaoPista)
   		}
 
   		senao se(navegaMenu == 12){
