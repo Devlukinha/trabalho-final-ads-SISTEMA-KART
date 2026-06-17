@@ -1,8 +1,506 @@
 programa
 {
 
-	//FUNÇÃO CRIADA APENAS PARA PREENCHER OS VETORES
-	funcao preencherVetores(cadeia &modelo[], cadeia &cor[], cadeia &statusUso[], real &valorLocacao[], real &totalGasto[], inteiro &qntVezesLocado[], inteiro &statusLocacao[]){
+//funcao para cadastrar karts
+	funcao cadastrarKart(cadeia &modelo[], cadeia &cor[], cadeia &statusUso[], real &valorLocacao[], real &totalGasto[], inteiro &qntVezesLocado[], inteiro &statusLocacao[], inteiro &i){
+
+		cadeia resp
+		logico repeticao = verdadeiro
+
+		
+			enquanto(repeticao == verdadeiro) {
+				se(modelo[i]=="" e cor[i]=="" e statusUso[i]=="" e valorLocacao[i]==0 e totalGasto[i]==0 e qntVezesLocado[i]==0 e statusLocacao[i]==0 ){
+				escreva("\nInsira as seguintes informações sobre o kart a ser cadastrado: ")
+				
+				escreva("\nModelo: ")
+				leia(modelo[i])
+				
+				escreva("\nCor: ")
+				leia(cor[i])
+				
+				escreva("\nStatus uso (disponível para uso ou em manutenção): ")
+				leia(statusUso[i])
+
+				escreva("\nValor locação: ")
+				leia(valorLocacao[i])
+				
+				escreva("\nTotal gasto com o Kart: ")
+				leia(totalGasto[i])
+				
+				escreva("\nQuantidade de vezes locado: ")
+				leia(qntVezesLocado[i])
+				
+				escreva("\nStatus locação (0 para alugado ou 1 disponível para locação): ")
+				leia(statusLocacao[i])
+
+
+				
+			} senao{
+				escreva("\nA posição ", i, " já está ocupada, escolha outra posição")
+				leia(i)
+				cadastrarKart(modelo, cor, statusUso, valorLocacao, totalGasto, qntVezesLocado, statusLocacao, i)
+			}
+
+			escreva("\n Deseja cadastrar um novo kart?\n")
+			leia(resp)
+
+			se(resp == "sim") {
+				cadastrarKart(modelo, cor, statusUso, valorLocacao, totalGasto, qntVezesLocado, statusLocacao, i)
+			}
+			senao {
+				repeticao = falso
+			}
+
+			}
+
+	}
+
+//funcao para listar karts disponiveis
+	funcao listarKartsDisponiveis(cadeia &modelo[], cadeia &cor[], cadeia &statusUso[], real &valorLocacao[], real &totalGasto[], inteiro &qntVezesLocado[], inteiro &statusLocacao[], inteiro &i){
+
+		logico encontrou = falso
+
+		escreva("\nKarts disponíveis:\n")
+		para(inteiro j = 0; j < 15; j++) {
+
+			se(modelo[i] != ""){
+				
+				escreva("\nKart ", j, 
+         "\n-Modelo: ", modelo[j],
+         "\n-Cor: ", cor[j] ,
+         "\n-Status: ", statusUso[j], 
+         "\n-Valor da locação: R$", valorLocacao[j],
+         "\n-Total gasto: ", totalGasto[j], 
+         "\n-Vezes locado: ", qntVezesLocado[j], 
+         "\n-Status locação: ", statusLocacao[j], "\n")
+				encontrou = verdadeiro
+			}
+		}
+		
+		se(encontrou == falso){
+				escreva("Não há karts disponíveis!")
+			}
+	}
+	
+//funcao para listar karts locados
+
+	funcao ListarKartsLocados(cadeia &modelo[], inteiro &statusLocacao[]){
+		inteiro i
+		logico encontrou = falso
+
+		escreva("\nKart(s) locado(s): \n")
+		para(i = 0; i < 15; i++){
+			se (modelo[i] != ""){
+				 se (statusLocacao[i] != 1){
+				 	escreva("\n", i,"-O modelo: ", modelo[i], " está alugado")
+				 	encontrou = verdadeiro
+				 	}
+				}
+			}
+      se(encontrou == falso)
+			escreva("\nNão há karts Alugados")
+		}
+
+
+
+//funcao para listar karts em manutencao
+	funcao listarKartsManutencao(cadeia &modelo[], cadeia &statusUso[]){
+		
+    logico encontrou = falso
+		escreva("\nKarts em manutencao:\n")
+		para(inteiro i = 0; i < 15; i++) {
+      
+			se(modelo[i] != "" e statusUso[i] != "disponivel"){
+				
+				escreva("\n", i,"-O modelo: ", modelo[i], " está em manutencao!")
+				encontrou = verdadeiro
+			} 
+		}
+    se(encontrou == falso) {
+			escreva("\nNão há karts em")
+		}
+	}
+
+	//FUNÇÃO RESPONSÁVEL POR DEVOLVER UM KART
+	funcao devolverKart(cadeia modelo[], inteiro statusLocacao[]){
+
+		inteiro posicaoKart
+
+		para(inteiro i = 0; i < 15; i++){
+			se(modelo[i] != "" e statusLocacao[i] == 1){
+            		escreva("\nPosição ", i, " - ", modelo[i])
+        		}
+		}
+
+		escreva("\nDigite a posicao do kart que deseja devolver: ")
+		leia(posicaoKart)
+
+		se(modelo[posicaoKart] != "" e statusLocacao[posicaoKart] == 1){
+        		statusLocacao[posicaoKart] = 0
+        		escreva("\nKart devolvido com sucesso!")
+    		}
+    		
+    		senao{
+        		escreva("\nEsse kart não está locado ou não existe.")
+   	     }
+		
+	}
+
+	//Qual kart foi o mais locado
+	funcao kartMaisLocado (cadeia &modelo[], cadeia &cor[], cadeia &statusUso[], real &valorLocacao[], real &totalGasto[], inteiro &qntVezesLocado[], inteiro &statusLocacao[]){
+		inteiro valorTemporario = 0, numeroKart
+		para(inteiro i=0; i<15; i++){
+			se(valorTemporario < qntVezesLocado[i]){
+				valorTemporario = qntVezesLocado[i]
+				numeroKart = i
+			}
+		}
+		escreva("\nO kart mais locado foi locado ", qntVezesLocado[numeroKart], " vezes!")
+		escreva("\n========= ESPECIFICAÇÕES ==============")
+		escreva("\nModelo: ", modelo[numeroKart])
+		escreva("\nCor: ", cor[numeroKart])
+		escreva("\nStatus de uso: ", statusUso[numeroKart])
+		escreva("\nValor locação: ", valorLocacao[numeroKart])
+		escreva("\nTotal despesas: ", totalGasto[numeroKart])
+		escreva("\nStatus de locação: ", statusLocacao[numeroKart])
+		escreva("========================================\n")
+		
+	}
+
+//funcao atualizar dados do kart
+	funcao atualizarDadosKart(cadeia &modelo[], cadeia &cor[], cadeia &statusUso[], real &valorLocacao[], real &totalGasto[], inteiro &qntVezesLocado[], inteiro &statusLocacao[], inteiro &i){
+
+		inteiro posicao, opcao
+
+		escreva("Digite a posição do kart: ")
+    		leia(posicao)
+
+    		se(posicao >= 0 e posicao < 15){
+    			se(modelo[posicao] != ""){
+		      escreva("1 - Cor")
+		      escreva("2 - Status de uso")
+		      escreva("3 - Valor da locação")
+		      escreva("4 - Gasto de manutenção")
+		      escreva("5 - Atualizar tudo")
+	        	 leia(opcao)
+
+    	    		}
+    	    		
+    	    		senao{
+        			escreva("Nenhum kart cadastrado nessa posição.")
+    	    		}
+
+    	    		se(opcao == 1) {
+    				escreva("Digite a nova cor")
+    				leia(cor[posicao])
+    	    		}
+    	    		
+    	    		senao se(opcao == 2) {
+			    escreva("Digite o novo status de uso (disponivel ou manutencao): ")
+			    leia(statusUso[posicao])
+			}
+			
+			senao se(opcao == 3) {
+			    escreva("Digite o novo valor da locação: ")
+			    leia(valorLocacao[posicao])
+			}
+			
+			senao se(opcao == 4) {
+			    real novoGasto
+			
+			    escreva("Digite o valor gasto na manutenção: ")
+			    leia(novoGasto)
+			
+			    // Soma ao valor já existente
+			    totalGasto[posicao] = totalGasto[posicao] + novoGasto
+			}
+			
+			senao se(opcao == 5) {
+			    escreva("Digite a nova cor: ")
+			    leia(cor[posicao])
+			
+			    escreva("Digite o novo status de uso: ")
+			    leia(statusUso[posicao])
+			
+			    escreva("Digite o novo valor da locação: ")
+			    leia(valorLocacao[posicao])
+			
+			    escreva("Digite o total gasto com manutenção: ")
+			    leia(totalGasto[posicao])
+			
+			    escreva("Digite a quantidade de vezes locado: ")
+			    leia(qntVezesLocado[posicao])
+			
+			    escreva("Digite o status da locação (0 = alugado, 1 = disponível): ")
+			    leia(statusLocacao[posicao])
+			}
+			
+			senao {
+			    escreva("Opção inválida!")
+			}
+		}
+
+    		senao {
+    			escreva("Posicao invalida!")
+    		} 	
+	}
+
+//funcao para alugar um kart
+	funcao alugarKart(cadeia &modelo[], cadeia &statusUso[],inteiro &statusLocacao[],inteiro &qntVezesLocado[]) {
+
+		inteiro posicao 
+
+		para(inteiro i = 0; i < 15; i++) {
+
+			se(modelo[i] != "" e statusUso[i] != "manutencao" e statusLocacao[i] == 1) {
+				escreva("\nPosição ", i, " - ", modelo[i])
+			}
+		}
+
+		escreva("\nDigite a posição do kart que deseja alugar: ")
+	     leia(posicao)
+	
+	    se(posicao >= 0 e posicao < 15) {
+	        se(modelo[posicao] != "" e statusUso[posicao] != "manutencao" e statusLocacao[posicao] == 1) {
+	            statusLocacao[posicao] = 0
+	            qntVezesLocado[posicao] = qntVezesLocado[posicao] + 1
+	
+	            escreva("\nKart alugado com sucesso!")
+	        }
+	        
+	        senao{
+	            escreva("\nEsse kart não está disponível para locação.")
+	        }
+	    }
+	    
+	    senao{
+	        escreva("\nPosição inválida!")
+	    }
+	}
+	
+
+//Menu do sistema
+	funcao menuSistema() {
+		
+		inteiro navegaMenu
+  		logico funcionamento = verdadeiro
+  		cadeia modelo[15], cor[15], corb[15], statusUso[15], statusUsob[15]
+		real valorLocacao[15], valorLocacaob[15], totalGasto[15], totalGastob[15]
+		inteiro qntVezesLocado[15], qntVezesLocadob[15], statusLocacao[15], statusLocacaob[15], i
+		
+//Teste
+para(i = 0; i < 15;i++){
+  modelo[i] = ""
+  cor [i] = ""
+  corb[i] = ""
+  statusUso[i] = ""
+  statusUsob[i] = ""
+  qntVezesLocadob[i] = 0
+  qntVezesLocado[i] = 0
+  statusLocacao[i] = 0
+  statusLocacaob[i] = 0
+  totalGasto[i] = 0
+  totalGastob[i] = 0
+  valorLocacao[i] = 0
+  valorLocacaob[i] = 0
+}
+
+	  //Escrever funções de cada número do menu dentro do respectivo "se" (Função 12 já pronta, não alterar)
+
+	 	enquanto(funcionamento == verdadeiro){
+	 	preencherVetores(modelo, cor, statusUso, valorLocacao, totalGasto, qntVezesLocado, statusLocacao)
+
+	  	escreva("\n======================[ MENU ]============================")
+		escreva("\n1 - Cadastrar um Kart")
+		escreva("\n2 - Listar Karts disponíveis")
+		escreva("\n3 - Listar Karts locados")
+		escreva("\n4 - Listar Karts em manutenção")
+		escreva("\n5 - Atualizar dados do Kart")
+		escreva("\n6 - Alugar um Kart")
+		escreva("\n7 - Devolver um Kart")
+		escreva("\n8 - Kart que mais gerou ganhos")
+	  escreva("\n9 - Receita e lucro do dia, considerando karts locados")
+		escreva("\n10 - Locação de circuito")
+		escreva("\n11 - Atualizar dia")
+		escreva("\n12 - Sair do programa")
+		escreva("\n12 - Sair do programa")
+		escreva("\n==========================================================")
+
+	     escreva("\nESCOLHA UMA OPÇÃO: ")
+ 		leia (navegaMenu)
+  
+		se (navegaMenu == 1){
+			escreva("Escolha em qual posição (0 a 14) o kart vai ser cadastrado: ")
+			leia(i)
+	    		cadastrarKart(modelo, cor, statusUso, valorLocacao, totalGasto, qntVezesLocado, statusLocacao, i)
+	  	}
+	  
+	  	senao se(navegaMenu == 2){
+	    		listarKartsDisponiveis(modelo, cor, statusUso, valorLocacao, totalGasto, qntVezesLocado, statusLocacao, i)
+	  	}
+  
+ 	     senao se(navegaMenu == 3){
+    			ListarKartsLocados(modelo, statusLocacao)
+  		}
+
+  		senao se(navegaMenu == 4){
+    			listarKartsManutencao(modelo, statusUso)
+  		}
+
+  		senao se(navegaMenu == 5){
+    			atualizarDadosKart(modelo, cor, statusUso, valorLocacao, totalGasto, qntVezesLocado, statusLocacao, i)
+  		}
+
+  		senao se(navegaMenu == 6){
+    
+  		}
+
+  		senao se(navegaMenu == 7){
+    			
+  			devolverKart(modelo,statusLocacao)
+  		}
+
+  		senao se(navegaMenu == 8){
+  			kartMaisLocado(modelo, cor, statusUso, valorLocacao, totalGasto, qntVezesLocado, statusLocacao)
+  		}
+
+  		senao se(navegaMenu == 9){
+    
+  		}
+
+  		senao se(navegaMenu == 10){
+    
+  		}
+
+  		senao se(navegaMenu == 11){
+    
+  		}
+
+  		senao se(navegaMenu == 12){
+  			escreva("\n------------------- PROGRAMA ENCERRADO -------------------\n")
+    			funcionamento = falso
+  		}
+		}
+	
+	}
+
+	
+	funcao inicio()
+	{
+		
+		menuSistema()
+		
+		
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//COPIE E COLE
+// preencherVetores(modelo, cor, statusUso, valorLocacao, totalGasto, qntVezesLocado, statusLocacao)
+
+
+funcao preencherVetores(cadeia &modelo[], cadeia &cor[], cadeia &statusUso[], real &valorLocacao[], real &totalGasto[], inteiro &qntVezesLocado[], inteiro &statusLocacao[]){
 
 modelo[0] = "Gol"
 cor[0] = "Branco"
@@ -124,214 +622,4 @@ totalGasto[14] = 285.0
 qntVezesLocado[14] = 3
 statusLocacao[14] = 0
 	}
-	
-	funcao cadastrarKart(cadeia &modelo[], cadeia &cor[], cadeia &statusUso[], real &valorLocacao[], real &totalGasto[], inteiro &qntVezesLocado[], inteiro &statusLocacao[], inteiro &i ){
-
-		cadeia resp
-		logico repeticao = verdadeiro
-
-		
-			enquanto(repeticao == verdadeiro) {
-				se(modelo[i]=="" e cor[i]=="" e statusUso[i]=="" e valorLocacao[i]==0 e totalGasto[i]==0 e qntVezesLocado[i]==0 e statusLocacao[i]==0 ){
-				escreva("\nInsira as seguintes informações sobre o kart a ser cadastrado:")
-				
-				escreva("\nModelo: ")
-				leia(modelo[i])
-				
-				escreva("\nCor: ")
-				leia(cor[i])
-				
-				escreva("\nStatus uso (disponível para uso ou em manutenção): ")
-				leia(statusUso[i])
-				
-				escreva("\nValor locação: ")
-				leia(valorLocacao[i])
-				
-				escreva("\nTotal gasto com o Kart: ")
-				leia(totalGasto[i])
-				
-				escreva("\nQuantidade de vezes locado: ")
-				leia(qntVezesLocado[i])
-				
-				escreva("\nStatus locação (0 para alugado ou 1 disponível para locação): ")
-				leia(statusLocacao[i])
-				
-			} senao{
-				escreva("\nA posição ", i, " já está ocupada, escolha outra posição")
-				leia(i)
-				cadastrarKart(modelo, cor, statusUso, valorLocacao, totalGasto, qntVezesLocado, statusLocacao, i)
-			}
-
-			escreva("\n Deseja cadastrar um novo kart?\n")
-			leia(resp)
-
-			se(resp == "sim") {
-				cadastrarKart(modelo, cor, statusUso, valorLocacao, totalGasto, qntVezesLocado, statusLocacao, i)
-			}
-			senao {
-				repeticao = falso
-			}
-
-			}
-
-	}
-
-
-	//FUNÇÃO RESPONSÁVEL POR DEVOLVER UM KART
-	funcao devolverKart(cadeia modelo[], cadeia cor[], inteiro statusLocacao[]){
-		inteiro kartsDisponiveis[15], selecionarKart
-		//LISTANDO CARROS LOCADOS
-		escreva("LISTA DE KARTS LOCADOS: \n")
-		para(inteiro i=0; i<15; i++){
-			se(statusLocacao[i] == 0){
-				escreva("=============================================\n")
-				escreva("Kart ", i, "\n")
-				escreva("Modelo : ", modelo[i], "\n")
-				escreva("Cor    : ", cor[i], "\n")
-				escreva("=============================================\n")
-				kartsDisponiveis[i] = 99
-			}senao{
-				kartsDisponiveis[i] = i
-			}
-		}
-		//SELECIONAR QUAL KART VAI SER DEVOLVIDO
-		faca{
-			escreva("SELECIONE QUAL CARRO VOCÊ DESEJA REMOVER: ")
-			leia(selecionarKart)
-			
-			para(inteiro i=0; i<15; i++){
-				se(selecionarKart == kartsDisponiveis[i]){
-					escreva("ESTE CARRO NÃO ESTÁ LOCADO!\n")
-					selecionarKart = -1
-				}
-			}
-		}enquanto(selecionarKart == -1 ou selecionarKart < 0 ou selecionarKart > 15)
-			
-			statusLocacao[selecionarKart] = 1
-	}
-	
-
-	funcao listarKartsDisponiveis(cadeia &modelo[], cadeia &statusUso[]){
-
-		escreva("\n Karts disponíveis:\n")
-		para(inteiro i = 0; i < 15; i++) {
-
-			se(modelo[i] != "" e statusUso[i] != "manutencao"){
-				
-				escreva("O modelo: ", modelo[i], " está disponível para uso")
-				
-			}
-		}
-	}
-
-
-
-	funcao menuSistema() {
-		
-		inteiro navegaMenu
-  		logico funcionamento = verdadeiro
-  		cadeia modelo[15], cor[15], corb[15], statusUso[15], statusUsob[15]
-		real valorLocacao[15], valorLocacaob[15], totalGasto[15], totalGastob[15]
-		inteiro qntVezesLocado[15], qntVezesLocadob[15], statusLocacao[15], statusLocacaob[15], i
-		
-
-		escreva("\n======================[ MENU ]============================")
-		escreva("\n1 - Cadastrar um Kart")
-		escreva("\n2 - Listar Karts disponíveis")
-		escreva("\n3 - Listar Karts locados")
-		escreva("\n4 - Listar Karts em manutenção")
-		escreva("\n5 - Atualizar dados do Kart")
-		escreva("\n6 - Alugar um Kart")
-		escreva("\n7 - Devolver um Kart")
-		escreva("\n8 - Kart que mais gerou ganhos")
-	     escreva("\n9 - Receita e lucro do dia, considerando karts locados")
-		escreva("\n10 - Locação de circuito")
-		escreva("\n11 - Atualizar dia")
-		escreva("\n12 - Sair do programa")
-		escreva("\n==========================================================")
-  
-  		escreva("\nESCOLHA UMA OPÇÃO: ")
- 		leia (navegaMenu)
-  
-
-	  //Escrever funções de cada número do menu dentro do respectivo "se" (Função 12 já pronta, não alterar)
-
-	  enquanto(funcionamento == verdadeiro)
-		se (navegaMenu == 1){
-			escreva("Escolha em qual posição (0 a 14) o kart vai ser cadastrado: ")
-			leia(i)
-	    		cadastrarKart(modelo, cor, statusUso, valorLocacao, totalGasto, qntVezesLocado, statusLocacao, i)
-	  	}
-	  
-	  	senao se(navegaMenu == 2){
-	    		listarKartsDisponiveis(modelo, statusUso)
-	  	}
-  
- 	     senao se(navegaMenu == 3){
-    
-  		}
-
-  		senao se(navegaMenu == 4){
-    
-  		}
-
-  		senao se(navegaMenu == 5){
-    
-  		}
-
-  		senao se(navegaMenu == 5){
-    
-  		}
-
-  		senao se(navegaMenu == 6){
-    
-  		}
-
-  		senao se(navegaMenu == 7){
-  			preencherVetores(modelo, cor, statusUso, valorLocacao, totalGasto, qntVezesLocado, statusLocacao) // adicionei so para testar o código
-  			devolverKart(modelo, cor, statusLocacao)
-  			funcionamento = falso
-  		}
-
-  		senao se(navegaMenu == 8){
-    
-  		}
-
-  		senao se(navegaMenu == 9){
-    
-  		}
-
-  		senao se(navegaMenu == 10){
-    
-  		}
-
-  		senao se(navegaMenu == 11){
-    
-  		}
-
-  		senao se(navegaMenu == 12){
-  			escreva("\n------------------- PROGRAMA ENCERRADO -------------------\n")
-    			funcionamento = falso
-  		}
-	}
-	
-	
-	funcao inicio()
-	{
-		
-		menuSistema()
-		
-		
-	}
 }
-/* $$$ Portugol Studio $$$ 
- * 
- * Esta seção do arquivo guarda informações do Portugol Studio.
- * Você pode apagá-la se estiver utilizando outro editor.
- * 
- * @POSICAO-CURSOR = 7306; 
- * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = {modelo, 181, 28, 6}-{cor, 181, 45, 3}-{statusLocacao, 181, 60, 13}-{kartsDisponiveis, 182, 10, 16}-{selecionarKart, 182, 32, 14};
- * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
- * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
- */
