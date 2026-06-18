@@ -85,7 +85,7 @@ programa
 
 		cadeia resp
 		logico repeticao = verdadeiro
-
+		inteiro locacaoNumero = 2
 		
 			enquanto(repeticao == verdadeiro) {
 				se(modelo[i]=="" e cor[i]=="" e statusUso[i]=="" e valorLocacao[i]==0 e totalGasto[i]==0 e qntVezesLocado[i]==0 e statusLocacao[i]==0 ){
@@ -97,8 +97,16 @@ programa
 				escreva("\nCor: ")
 				leia(cor[i])
 				
-				escreva("\nStatus uso (disponível para uso ou em manutenção): ")
-				leia(statusUso[i])
+				escreva("\nStatus uso (0-disponível para uso - 1- em manutenção): ")
+				leia(locacaoNumero)
+				se (locacaoNumero == 0){
+					statusUso[i] = "disponivel"
+					}senao{
+						statusUso[i] = "manutencao"
+						}enquanto(locacaoNumero < 0 ou locacaoNumero > 1){
+						escreva("\nOpção inválida. Insira um numero entre 0 e 1: ")
+						leia(locacaoNumero)
+					}
 
 				escreva("\nValor locação: ")
 				leia(valorLocacao[i])
@@ -132,7 +140,7 @@ programa
 			leia(resp)
 
 			se(resp == "sim" ou resp == "s" ou resp == "SIM" ou resp == "S") {
-				cadastrarKart(modelo, cor, statusUso, valorLocacao, totalGasto, qntVezesLocado, statusLocacao, i)
+				
 				resp = ""
 			}
 			senao {
@@ -264,11 +272,11 @@ programa
 
     		se(posicao >= 0 e posicao < 15){
     			se(modelo[posicao] != ""){
-		      escreva("1 - Cor")
-		      escreva("2 - Status de uso")
-		      escreva("3 - Valor da locação")
-		      escreva("4 - Gasto de manutenção")
-		      escreva("5 - Atualizar tudo")
+		      escreva("1 - Cor\n")
+		      escreva("2 - Status de uso\n")
+		      escreva("3 - Valor da locação\n")
+		      escreva("4 - Gasto de manutenção\n")
+		      escreva("5 - Atualizar tudo\n")
 	        	 leia(opcao)
 
     	    		}
@@ -430,7 +438,7 @@ para(i = 0; i < 15;i++){
 }
 
 	  //Escrever funções de cada número do menu dentro do respectivo "se" (Função 12 já pronta, não alterar)
-		preencherVetores(modelo, cor, statusUso, valorLocacao, totalGasto, qntVezesLocado, statusLocacao)
+		
 	 	enquanto(funcionamento == verdadeiro){
 
 	  	escreva("\n======================[ MENU ]============================")
@@ -665,17 +673,6 @@ statusLocacao[14] = 0
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
  * @POSICAO-CURSOR = 5766; 
- * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = ;
- * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
- * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
- */
-/* $$$ Portugol Studio $$$ 
- * 
- * Esta seção do arquivo guarda informações do Portugol Studio.
- * Você pode apagá-la se estiver utilizando outro editor.
- * 
- * @POSICAO-CURSOR = 18079; 
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
