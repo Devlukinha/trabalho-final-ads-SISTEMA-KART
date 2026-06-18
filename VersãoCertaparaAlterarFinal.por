@@ -548,7 +548,7 @@ funcao preencherVetores(cadeia &modelo[], cadeia &cor[], cadeia &statusUso[], re
 
 modelo[0] = "Gol"
 cor[0] = "Branco"
-statusUso[0] = "Disponivel"
+statusUso[0] = "disponivel"
 valorLocacao[0] = 120.0
 totalGasto[0] = 1200.0
 qntVezesLocado[0] = 10
@@ -556,7 +556,7 @@ statusLocacao[0] = 0
 
 modelo[1] = "Onix"
 cor[1] = "Preto"
-statusUso[1] = "Locado"
+statusUso[1] = "manutencao"
 valorLocacao[1] = 150.0
 totalGasto[1] = 900.0
 qntVezesLocado[1] = 6
@@ -564,7 +564,7 @@ statusLocacao[1] = 1
 
 modelo[2] = "HB20"
 cor[2] = "Prata"
-statusUso[2] = "Disponivel"
+statusUso[2] = "disponivel"
 valorLocacao[2] = 140.0
 totalGasto[2] = 560.0
 qntVezesLocado[2] = 4
@@ -572,7 +572,7 @@ statusLocacao[2] = 0
 
 modelo[3] = "Civic"
 cor[3] = "Vermelho"
-statusUso[3] = "Manutencao"
+statusUso[3] = "manutencao"
 valorLocacao[3] = 250.0
 totalGasto[3] = 2000.0
 qntVezesLocado[3] = 8
@@ -580,7 +580,7 @@ statusLocacao[3] = 2
 
 modelo[4] = "Corolla"
 cor[4] = "Azul"
-statusUso[4] = "Disponivel"
+statusUso[4] = "disponivel"
 valorLocacao[4] = 260.0
 totalGasto[4] = 2600.0
 qntVezesLocado[4] = 10
@@ -588,7 +588,7 @@ statusLocacao[4] = 0
 
 modelo[5] = "Uno"
 cor[5] = "Cinza"
-statusUso[5] = "Locado"
+statusUso[5] = "alugado"
 valorLocacao[5] = 100.0
 totalGasto[5] = 700.0
 qntVezesLocado[5] = 7
@@ -596,7 +596,7 @@ statusLocacao[5] = 1
 
 modelo[6] = "Argo"
 cor[6] = "Branco"
-statusUso[6] = "Disponivel"
+statusUso[6] = "disponivel"
 valorLocacao[6] = 130.0
 totalGasto[6] = 650.0
 qntVezesLocado[6] = 5
@@ -604,7 +604,7 @@ statusLocacao[6] = 0
 
 modelo[7] = "Cruze"
 cor[7] = "Preto"
-statusUso[7] = "Disponivel"
+statusUso[7] = "disponivel"
 valorLocacao[7] = 220.0
 totalGasto[7] = 1540.0
 qntVezesLocado[7] = 7
@@ -612,7 +612,7 @@ statusLocacao[7] = 0
 
 modelo[8] = "Ka"
 cor[8] = "Prata"
-statusUso[8] = "Locado"
+statusUso[8] = "manutencao"
 valorLocacao[8] = 110.0
 totalGasto[8] = 880.0
 qntVezesLocado[8] = 8
@@ -620,7 +620,7 @@ statusLocacao[8] = 1
 
 modelo[9] = "Palio"
 cor[9] = "Vermelho"
-statusUso[9] = "Disponivel"
+statusUso[9] = "disponivel"
 valorLocacao[9] = 105.0
 totalGasto[9] = 420.0
 qntVezesLocado[9] = 4
@@ -628,15 +628,15 @@ statusLocacao[9] = 0
 
 modelo[10] = "Tracker"
 cor[10] = "Azul"
-statusUso[10] = "Manutencao"
+statusUso[10] = "manutencao"
 valorLocacao[10] = 280.0
 totalGasto[10] = 1960.0
 qntVezesLocado[10] = 7
-statusLocacao[10] = 2
+statusLocacao[10] = 0
 
 modelo[11] = "Compass"
 cor[11] = "Cinza"
-statusUso[11] = "Disponivel"
+statusUso[11] = "disponivel"
 valorLocacao[11] = 300.0
 totalGasto[11] = 2400.0
 qntVezesLocado[11] = 8
@@ -644,7 +644,7 @@ statusLocacao[11] = 0
 
 modelo[12] = "Renegade"
 cor[12] = "Branco"
-statusUso[12] = "Locado"
+statusUso[12] = "manutencao"
 valorLocacao[12] = 290.0
 totalGasto[12] = 1450.0
 qntVezesLocado[12] = 5
@@ -652,7 +652,7 @@ statusLocacao[12] = 1
 
 modelo[13] = "T-Cross"
 cor[13] = "Preto"
-statusUso[13] = "Disponivel"
+statusUso[13] = "disponivel"
 valorLocacao[13] = 270.0
 totalGasto[13] = 1080.0
 qntVezesLocado[13] = 4
@@ -660,7 +660,7 @@ statusLocacao[13] = 0
 
 modelo[14] = "Kwid"
 cor[14] = "Prata"
-statusUso[14] = "Disponivel"
+statusUso[14] = "disponivel"
 valorLocacao[14] = 95.0
 totalGasto[14] = 285.0
 qntVezesLocado[14] = 3
