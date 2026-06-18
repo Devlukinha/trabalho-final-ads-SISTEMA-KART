@@ -1,9 +1,10 @@
 programa
 {
 
-	funcao atualizaDia(logico &locacaoPista){
+	funcao atualizaDia(logico &locacaoPista, cadeia modelo[], inteiro &statusLocacao[], real valorLocacao[]){
 		limpa()
-		inteiro menu
+		inteiro menu, i
+		logico encontrou = falso
 		
 		escreva("Você tem certeza que realmente deseja atualizar o dia?")
 		escreva("\n\n1 - Sim ")
@@ -15,7 +16,19 @@ programa
 			locacaoPista = falso
 			
 			escreva("\nStatus da pista atualizado para NÃO LOCADO. ")
-			escreva("\nKarts que deverão ser cobrado novo aluguel: ")
+			escreva("\nKarts que deverão ser cobrado novo aluguel: \n")
+		para(i = 0; i < 15; i++){
+			se (modelo[i] != ""){
+				 se (statusLocacao[i] != 1){
+				 	escreva("\n", i,"- Deve ser cobrado novo aluguel modelo: ", modelo[i], " R$", valorLocacao[i])
+				 	encontrou = verdadeiro
+				 	}
+				}
+			}
+      se(encontrou == falso)
+			escreva("\nNão há karts Alugados")
+
+			
 			
 			}
 		se (menu == 2){
@@ -438,7 +451,6 @@ para(i = 0; i < 15;i++){
 }
 
 	  //Escrever funções de cada número do menu dentro do respectivo "se" (Função 12 já pronta, não alterar)
-		
 	 	enquanto(funcionamento == verdadeiro){
 
 	  	escreva("\n======================[ MENU ]============================")
@@ -509,7 +521,7 @@ para(i = 0; i < 15;i++){
   		}
 
   		senao se(navegaMenu == 11){
-    			atualizaDia(locacaoPista)
+    			atualizaDia(locacaoPista, modelo, statusLocacao, valorLocacao)
   		}
 
   		senao se(navegaMenu == 12){
